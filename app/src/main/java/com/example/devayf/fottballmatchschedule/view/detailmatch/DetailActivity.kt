@@ -1,17 +1,24 @@
 package com.example.devayf.fottballmatchschedule.view.detailmatch
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.provider.SyncStateContract.Helpers.insert
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
-import com.example.devayf.fottballmatchschedule.R
 import com.example.devayf.fottballmatchschedule.api.ApiRepository
 import com.example.devayf.fottballmatchschedule.model.match.Match
 import com.example.devayf.fottballmatchschedule.model.teams.Team
 import com.example.devayf.fottballmatchschedule.presenter.DetailPresenter
+import com.example.devayf.fottballmatchschedule.view.main.favoriteteams.FavoriteTeams
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import com.example.devayf.fottballmatchschedule.R
+import com.example.devayf.fottballmatchschedule.R.id.add_to_favorite
+import com.example.devayf.fottballmatchschedule.R.menu.detail_menu
+import com.example.devayf.fottballmatchschedule.database.database
 
 class DetailActivity : AppCompatActivity(), DetailView {
 
@@ -22,6 +29,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
     private lateinit var awayId: String
     val api = ApiRepository()
     val gson = Gson()
+    private var menuItem: Menu? = null
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +91,15 @@ class DetailActivity : AppCompatActivity(), DetailView {
         tv_awayDefense.text = events[0].awayDefense
         tv_awayMidfield.text = events[0].awayMidfield
         tv_awayForward.text = events[0].awayForward
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(detail_menu, menu)
+        menuItem = menu
+        return true
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
@@ -90,8 +107,25 @@ class DetailActivity : AppCompatActivity(), DetailView {
                 finish()
                 true
             }
+            add_to_favorite -> {
+//                addToFavorite()
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+//    private fun addToFavorite(){
+//        try{
+//            database.use {
+//                insert(FavoriteTeams.TABLE_FAVORITE,
+//                        FavoriteTeams.TEAM_ID to teams.teamId,
+//                        FavoriteTeams.TEAM_NAME to teams.teamName,
+//                        FavoriteTeams.TEAM_BADGE to teams.teamBadge)
+//            }
+//            swipeRefresh.snackbar("Added to favorite").show()
+//        } catch (e: SQLiteConstraintException){
+//            swipeRefresh.snackbar(e.localizedMessage).show()
+//    }
 }

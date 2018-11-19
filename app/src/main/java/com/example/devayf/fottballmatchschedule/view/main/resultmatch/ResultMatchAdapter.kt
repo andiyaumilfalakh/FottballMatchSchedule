@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.devayf.fottballmatchschedule.R
 import com.example.devayf.fottballmatchschedule.model.match.Match
 
-class ResultMatchAdapter (private val context: FragmentActivity?, private val matchs: List<Match>, private val listener: (Match) -> Unit)
+class   ResultMatchAdapter (private val context: FragmentActivity?, private val matchs: List<Match>, private val listener: (Match) -> Unit)
     : RecyclerView.Adapter<ResultMatchAdapter.MatchViewHolder>(){
 
 

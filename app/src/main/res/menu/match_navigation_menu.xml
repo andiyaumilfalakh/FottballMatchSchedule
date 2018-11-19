@@ -14,4 +14,10 @@
         android:icon="@mipmap/ic_nextmatch"
         android:title="@string/next_match"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/item_favorites"
+        android:enabled="true"
+        android:icon="@mipmap/ic_favorite"
+        android:title="@string/favorite_match"
+        app:showAsAction="ifRoom" />
 </menu>

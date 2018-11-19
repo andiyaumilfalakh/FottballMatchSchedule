@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.devayf.fottballmatchschedule.R
 import com.example.devayf.fottballmatchschedule.R.id.*
+import com.example.devayf.fottballmatchschedule.view.main.favoriteteams.FavoriteTeamsFragment
 import com.example.devayf.fottballmatchschedule.view.main.nextmatch.NextMatchFragment
 import com.example.devayf.fottballmatchschedule.view.main.resultmatch.ResultMatchFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,6 +24,9 @@ class MatchActivity : AppCompatActivity() {
 
                 item__next_match -> {
                     loadNextMatchFragment(savedInstanceState)
+                }
+                item_favorites -> {
+                    loadFavoriteTeamsFragment(savedInstanceState)
                 }
             }
 
@@ -50,4 +54,12 @@ class MatchActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadFavoriteTeamsFragment (savedInstanceState: Bundle?){
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frame_mainFrame, FavoriteTeamsFragment(), FavoriteTeamsFragment::class.java.simpleName)
+                    .commit()
+        }
+    }
 }
